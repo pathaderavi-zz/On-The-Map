@@ -8,11 +8,30 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController,UITextFieldDelegate {
+    @IBOutlet weak var userName: UITextField!
+    @IBOutlet weak var password: UITextField!
+    
+    @IBAction func loginPressed(_ sender: Any) {
+        let usernameText = userName.text
+        let pass = password.text
+        
+        userName.resignFirstResponder()
+        password.resignFirstResponder()
+        DispatchQueue.main.async {
+             loginFunction(username: usernameText!, password: pass!)
+        }
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        
+        return true
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        userName.delegate = self
+        password.delegate  = self
+     
     }
 
     override func didReceiveMemoryWarning() {
@@ -20,6 +39,6 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+ 
 }
 
