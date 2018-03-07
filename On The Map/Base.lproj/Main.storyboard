@@ -87,10 +87,10 @@
             </objects>
             <point key="canvasLocation" x="671" y="74"/>
         </scene>
-        <!--View Controller-->
+        <!--Map View Controller-->
         <scene sceneID="weQ-2Z-jAE">
             <objects>
-                <viewController id="jUe-6w-p9r" sceneMemberID="viewController">
+                <viewController id="jUe-6w-p9r" customClass="MapViewController" customModule="On_The_Map" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dJh-pU-mvm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -110,17 +110,21 @@
                     </view>
                     <navigationItem key="navigationItem" id="VcC-ar-7PH">
                         <barButtonItem key="leftBarButtonItem" systemItem="compose" id="daH-Ez-utW"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="knK-0B-mgc"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="knK-0B-mgc">
+                            <connections>
+                                <action selector="logout:" destination="jUe-6w-p9r" id="1He-N6-pZE"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9jt-Me-jmP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4004" y="-404"/>
         </scene>
-        <!--Table View Controller-->
+        <!--List View Controller-->
         <scene sceneID="jF0-9z-qTy">
             <objects>
-                <tableViewController id="gTC-ay-JxV" sceneMemberID="viewController">
+                <tableViewController id="gTC-ay-JxV" customClass="ListViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="2iv-QB-iUT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -142,7 +146,11 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="4Wj-Eg-j8I">
                         <barButtonItem key="leftBarButtonItem" systemItem="compose" id="03T-Kp-hSS"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="zBD-zB-uZt"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="zBD-zB-uZt">
+                            <connections>
+                                <action selector="logout:" destination="gTC-ay-JxV" id="70H-cZ-rmO"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WP1-B3-m2N" userLabel="First Responder" sceneMemberID="firstResponder"/>

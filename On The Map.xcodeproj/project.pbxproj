@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4047A7DC204FD99E0093ABDA /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4047A7DB204FD99E0093ABDA /* MapViewController.swift */; };
+		4047A7DE204FDD1B0093ABDA /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4047A7DD204FDD1B0093ABDA /* ListViewController.swift */; };
+		4047A7E1204FDF310093ABDA /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4047A7E0204FDF310093ABDA /* Student.swift */; };
 		405C055C204D456F007DDC2E /* Requests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405C055B204D456F007DDC2E /* Requests.swift */; };
 		405C055E204E2B55007DDC2E /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405C055D204E2B55007DDC2E /* TabBarViewController.swift */; };
 		4078DE9F204D0B7A00FCEC8F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4078DE9E204D0B7A00FCEC8F /* AppDelegate.swift */; };
@@ -17,6 +20,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4047A7DB204FD99E0093ABDA /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		4047A7DD204FDD1B0093ABDA /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		4047A7E0204FDF310093ABDA /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
 		405C055B204D456F007DDC2E /* Requests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requests.swift; sourceTree = "<group>"; };
 		405C055D204E2B55007DDC2E /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		4078DE9B204D0B7A00FCEC8F /* On The Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On The Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -39,6 +45,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4047A7DF204FDF240093ABDA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4047A7E0204FDF310093ABDA /* Student.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		405C055A204D454D007DDC2E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -66,10 +80,13 @@
 		4078DE9D204D0B7A00FCEC8F /* On The Map */ = {
 			isa = PBXGroup;
 			children = (
+				4047A7DF204FDF240093ABDA /* Model */,
 				405C055A204D454D007DDC2E /* Controller */,
 				4078DE9E204D0B7A00FCEC8F /* AppDelegate.swift */,
 				4078DEA0204D0B7A00FCEC8F /* ViewController.swift */,
 				4078DEA2204D0B7A00FCEC8F /* Main.storyboard */,
+				4047A7DD204FDD1B0093ABDA /* ListViewController.swift */,
+				4047A7DB204FD99E0093ABDA /* MapViewController.swift */,
 				4078DEA5204D0B7A00FCEC8F /* Assets.xcassets */,
 				4078DEA7204D0B7A00FCEC8F /* LaunchScreen.storyboard */,
 				4078DEAA204D0B7A00FCEC8F /* Info.plist */,
@@ -152,7 +169,10 @@
 			files = (
 				405C055E204E2B55007DDC2E /* TabBarViewController.swift in Sources */,
 				405C055C204D456F007DDC2E /* Requests.swift in Sources */,
+				4047A7DE204FDD1B0093ABDA /* ListViewController.swift in Sources */,
 				4078DEA1204D0B7A00FCEC8F /* ViewController.swift in Sources */,
+				4047A7DC204FD99E0093ABDA /* MapViewController.swift in Sources */,
+				4047A7E1204FDF310093ABDA /* Student.swift in Sources */,
 				4078DE9F204D0B7A00FCEC8F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

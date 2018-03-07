@@ -20,7 +20,7 @@ class ViewController: UIViewController,UITextFieldDelegate {
         password.resignFirstResponder()
         DispatchQueue.main.async {
             loginFunction(username: usernameText!, password: pass!) {(success) in
-                print(success)
+                //TODO -- ADD LOADING INDICATOR
                 if(success){
                     let controller: TabBarViewController
                     controller = self.storyboard?.instantiateViewController(withIdentifier:"loginSuccess") as! TabBarViewController
@@ -28,6 +28,7 @@ class ViewController: UIViewController,UITextFieldDelegate {
                         //self.navigationController?
                 }else{
                     print("UserId and Password Did not match")
+                    //TODO -- SHOW ALERT
                 }
             }
            
