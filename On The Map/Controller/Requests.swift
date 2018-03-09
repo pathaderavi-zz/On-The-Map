@@ -8,7 +8,7 @@
 
 import Foundation
 
-func loginFunction(username: String, password: String, completionHandler:@escaping(_ success:Bool)->Void){
+func loginFunction(username: String, password: String, completionHandler:@escaping(_ success:Bool,_ key:String)->Void){
     var request = URLRequest(url: URL(string: "https://www.udacity.com/api/session")!)
     request.httpMethod = "POST"
     request.addValue("application/json", forHTTPHeaderField: "Accept")
@@ -34,12 +34,11 @@ func loginFunction(username: String, password: String, completionHandler:@escapi
         }
         
         if let accountResult = parsedResult["account"] as? [String:AnyObject]{
-            let key = accountResult["registered"] as? String
+            let key = accountResult["key"] as? String
             let registered = accountResult["registered"] as? Bool
-           
-            completionHandler(registered!)
+            completionHandler(registered!,key!)
         }else{
-            completionHandler(false)
+            completionHandler(false,"nil")
         }
     }
     task.resume()
@@ -100,12 +99,16 @@ func listAllStudents(completionHandler:@escaping(_ students:[Student])->Void){
 
 }
 func postStudentLocation(key:String,completionHandler:@escaping(_ success:Bool)->Void){
+    let defaults = UserDefaults.standard
+    let fname = defaults.string(forKey: "fname")!
+    let lname = defaults.string(forKey: "lname")!
+    print(fname + " " + lname)
     var request = URLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!)
     request.httpMethod = "POST"
     request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
     request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-    request.httpBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"Mountain View, CA\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 37.386052, \"longitude\": -122.083851}".data(using: .utf8)
+    request.httpBody = "{\"uniqueKey\": \"\(key)\", \"firstName\": \"\(fname)\", \"lastName\": \"\(lname)\",\"mapString\": \"Mountain View, CA\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 37.386052, \"longitude\": -122.083851}".data(using: .utf8)
     let session = URLSession.shared
     let task = session.dataTask(with: request) { data, response, error in
         if error != nil { // Handle error…
@@ -115,6 +118,40 @@ func postStudentLocation(key:String,completionHandler:@escaping(_ success:Bool)-
             completionHandler(true)
         }
         print(String(data: data!, encoding: .utf8)!)
+    }
+    task.resume()
+}
+func getUserDetails(){
+    let defaults = UserDefaults.standard
+    let key = defaults.string(forKey: "key")!
+    let request = URLRequest(url: URL(string: "https://www.udacity.com/api/users/\(key)")!)
+    let session = URLSession.shared
+    let task = session.dataTask(with: request) { data, response, error in
+        if error != nil { // Handle error...
+            return
+        }else{
+            let range = Range(5..<data!.count)
+            let newData = data?.subdata(in: range)
+           
+            var parsedResult: AnyObject!
+            do{
+                parsedResult = try JSONSerialization.jsonObject(with: newData!, options: .allowFragments) as AnyObject
+                
+            }catch{
+                print("Cannot Serialize")
+                return
+            }
+            
+            if let accountResult = parsedResult["user"] as? [String:AnyObject]{
+                let fname = accountResult["first_name"] as? String
+                let lname = accountResult["last_name"] as? String
+                let defaults = UserDefaults.standard
+                defaults.set(fname, forKey: "fname")
+                defaults.set(lname, forKey: "lname")
+            }
+        }
+     /* subset response data! */
+        
     }
     task.resume()
 }

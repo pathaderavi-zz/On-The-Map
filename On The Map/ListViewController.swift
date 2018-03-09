@@ -19,7 +19,8 @@ class ListViewController: UITableViewController{
     }
   
     override func viewDidAppear(_ animated: Bool) {
-      
+      let defaults = UserDefaults.standard
+      print(defaults.string(forKey: "key"))
     }
     override func viewDidLoad() {
      listAllStudents { (students) in

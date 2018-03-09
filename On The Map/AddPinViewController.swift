@@ -20,18 +20,21 @@ class AddPinViewController:UIViewController,UITextFieldDelegate,MKMapViewDelegat
     @IBOutlet weak var textFieldMap: UITextField!
     
     @IBAction func submitActionButton(_ sender: Any) {
-        textFieldMap.isHidden = true
-        mapView.isHidden = false
-        linkTextField.isHidden = false
-        questionLabel.isHidden = true
         
+        let mapHidden = mapView.isHidden
         let searchRequest = MKLocalSearchRequest()
         searchRequest.naturalLanguageQuery = textFieldMap.text
         let activeSearch = MKLocalSearch(request:searchRequest)
+        if mapHidden{
         activeSearch.start { (response, error) in
             if response == nil{
                 print("Error")
             }else{
+                self.textFieldMap.isHidden = true
+                self.mapView.isHidden = false
+                self.linkTextField.isHidden = false
+                self.questionLabel.isHidden = true
+                
                 let lattitude = response?.boundingRegion.center.latitude
                 let longitude = response?.boundingRegion.center.longitude
                 
@@ -45,6 +48,15 @@ class AddPinViewController:UIViewController,UITextFieldDelegate,MKMapViewDelegat
                 let region = MKCoordinateRegionMake(coOrdinate, span)
                 self.mapView.setRegion(region, animated: true)
             }
+            }
+            
+        }else{
+            let defaults = UserDefaults.standard
+            let key = defaults.string(forKey: "key")!
+            postStudentLocation(key: key, completionHandler: { (success) in
+                print("Location Post Successfull")
+                self.dismiss(animated: true, completion: nil)
+            })
         }
     }
     @IBAction func cancelButtonAction(_ sender: Any) {

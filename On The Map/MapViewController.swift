@@ -13,7 +13,10 @@ import MapKit
 class MapViewController: UIViewController, MKMapViewDelegate{
     var allStudents = [Student]()
     @IBOutlet weak var mapView: MKMapView!
-    
+    override func viewDidAppear(_ animated: Bool) {
+//        let defaults = UserDefaults.standard
+//        print(defaults.string(forKey: "key"))
+    }
     @IBAction func addPinButton(_ sender: Any) {
         let controller: AddPinViewController
         controller = self.storyboard?.instantiateViewController(withIdentifier:"addPin") as! AddPinViewController
@@ -26,7 +29,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
         self.dismiss(animated: true, completion: nil)
     }
     override func viewDidLoad() {
-      
+        getUserDetails()
         var annotations = [MKPointAnnotation]()
         listAllStudents(completionHandler: {(students) in
             for student in students{
@@ -45,6 +48,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
                 annotation.title = title
                 annotation.subtitle = mediaUrl
                 annotations.append(annotation)
+                
             }
             self.mapView.addAnnotations(annotations)
             //self.mapView.reloadInputViews()
