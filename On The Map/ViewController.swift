@@ -25,6 +25,10 @@ class ViewController: UIViewController,UITextFieldDelegate {
                     let controller: TabBarViewController
                     controller = self.storyboard?.instantiateViewController(withIdentifier:"loginSuccess") as! TabBarViewController
                         self.present(controller,animated: true,completion: nil)
+//                    let defaults = UserDefaults.standard
+//
+//                    defaults.set(usernameText, forKey: "username")
+//                    defaults.set(pass, forKey: "password")
                         //self.navigationController?
                 }else{
                     print("UserId and Password Did not match")

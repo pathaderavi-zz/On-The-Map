@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		403618E12052763C00AABBC8 /* AddPinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403618E02052763C00AABBC8 /* AddPinViewController.swift */; };
 		4047A7DC204FD99E0093ABDA /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4047A7DB204FD99E0093ABDA /* MapViewController.swift */; };
 		4047A7DE204FDD1B0093ABDA /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4047A7DD204FDD1B0093ABDA /* ListViewController.swift */; };
 		4047A7E1204FDF310093ABDA /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4047A7E0204FDF310093ABDA /* Student.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		403618E02052763C00AABBC8 /* AddPinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPinViewController.swift; sourceTree = "<group>"; };
 		4047A7DB204FD99E0093ABDA /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		4047A7DD204FDD1B0093ABDA /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		4047A7E0204FDF310093ABDA /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				4078DEA7204D0B7A00FCEC8F /* LaunchScreen.storyboard */,
 				4078DEAA204D0B7A00FCEC8F /* Info.plist */,
 				405C055D204E2B55007DDC2E /* TabBarViewController.swift */,
+				403618E02052763C00AABBC8 /* AddPinViewController.swift */,
 			);
 			path = "On The Map";
 			sourceTree = "<group>";
@@ -171,6 +174,7 @@
 				405C055C204D456F007DDC2E /* Requests.swift in Sources */,
 				4047A7DE204FDD1B0093ABDA /* ListViewController.swift in Sources */,
 				4078DEA1204D0B7A00FCEC8F /* ViewController.swift in Sources */,
+				403618E12052763C00AABBC8 /* AddPinViewController.swift in Sources */,
 				4047A7DC204FD99E0093ABDA /* MapViewController.swift in Sources */,
 				4047A7E1204FDF310093ABDA /* Student.swift in Sources */,
 				4078DE9F204D0B7A00FCEC8F /* AppDelegate.swift in Sources */,

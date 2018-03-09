@@ -25,6 +25,9 @@ class Student{
         mediaUrl = dictionary["mediaURL"] as! String
         lattitude = dictionary["latitude"] as! Float
         longitude = dictionary["longitude"] as! Float
+        objectID = dictionary["objectId"] as! String
+        uniqueKey = dictionary["uniqueKey"] as! String
+        mapString = dictionary["mapString"] as! String
     }
     static func studentFromResults(_ results:[[String:AnyObject]])->[Student]{
         var student = [Student]()
