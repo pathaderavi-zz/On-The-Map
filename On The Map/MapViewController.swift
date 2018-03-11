@@ -14,8 +14,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     var allStudents = [Student]()
     @IBOutlet weak var mapView: MKMapView!
     override func viewDidAppear(_ animated: Bool) {
-//        let defaults = UserDefaults.standard
-//        print(defaults.string(forKey: "key"))
+        //mapView.reloadInputViews()
     }
     @IBAction func addPinButton(_ sender: Any) {
         let controller: AddPinViewController

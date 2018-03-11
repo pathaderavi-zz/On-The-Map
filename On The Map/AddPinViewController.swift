@@ -11,7 +11,8 @@ import UIKit
 import MapKit
 
 class AddPinViewController:UIViewController,UITextFieldDelegate,MKMapViewDelegate{
-    
+    var latt:Double?
+    var long:Double?
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var findLocationButton: UIButton!
     
@@ -23,13 +24,24 @@ class AddPinViewController:UIViewController,UITextFieldDelegate,MKMapViewDelegat
         
         let mapHidden = mapView.isHidden
         let searchRequest = MKLocalSearchRequest()
-        searchRequest.naturalLanguageQuery = textFieldMap.text
+        let mapStringQuery = textFieldMap.text
+        searchRequest.naturalLanguageQuery = mapStringQuery
         let activeSearch = MKLocalSearch(request:searchRequest)
         if mapHidden{
         activeSearch.start { (response, error) in
             if response == nil{
-                print("Error")
+                if(self.textFieldMap.text?.count == 0){
+                    self.textFieldMap.resignFirstResponder()
+                    self.showAlert(title: "Location Field Blank", message: "Please enter Location")
+                    return
+                }
+                print("Error") // Show Alert
             }else{
+                if(self.textFieldMap.text?.count == 0){
+                    self.textFieldMap.resignFirstResponder()
+                    self.showAlert(title: "Location Field Blank", message: "Please enter Location")
+                    return
+                }
                 self.textFieldMap.isHidden = true
                 self.mapView.isHidden = false
                 self.linkTextField.isHidden = false
@@ -37,9 +49,11 @@ class AddPinViewController:UIViewController,UITextFieldDelegate,MKMapViewDelegat
                 
                 let lattitude = response?.boundingRegion.center.latitude
                 let longitude = response?.boundingRegion.center.longitude
-                
+                self.latt = lattitude
+                self.long = longitude
+               
                 let annotation = MKPointAnnotation()
-                annotation.title = "Search" //TODO
+                annotation.title = mapStringQuery
                 annotation.coordinate = CLLocationCoordinate2DMake(lattitude!, longitude!)
                 self.mapView.addAnnotation(annotation)
                 
@@ -51,9 +65,18 @@ class AddPinViewController:UIViewController,UITextFieldDelegate,MKMapViewDelegat
             }
             
         }else{
+            if(self.linkTextField.text?.count == 0){
+                self.textFieldMap.resignFirstResponder()
+                self.showAlert(title: "Linkn Field Blank", message: "Please enter Some text")
+                return
+            }
             let defaults = UserDefaults.standard
             let key = defaults.string(forKey: "key")!
-            postStudentLocation(key: key, completionHandler: { (success) in
+            let fname = defaults.string(forKey: "fname")!
+            let lname = defaults.string(forKey: "lname")!
+            let mediaUrl = linkTextField.text
+    
+            postStudentLocation(key: key,fname: fname,lname: lname, mapString: mapStringQuery!, mediaUrl: mediaUrl!, latt: self.latt!,long:self.long!, completionHandler: { (success) in
                 print("Location Post Successfull")
                 self.dismiss(animated: true, completion: nil)
             })
@@ -65,10 +88,33 @@ class AddPinViewController:UIViewController,UITextFieldDelegate,MKMapViewDelegat
     override func viewDidLoad() {
         linkTextField.isHidden = true
         mapView.isHidden = true
+        textFieldMap.tag = 1
+        linkTextField.tag = 2
         textFieldMap.delegate = self
+        linkTextField.delegate = self
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        if( textField.text?.count == 0 ){
+            if(textField.tag == 1){
+                 textField.resignFirstResponder()
+                 showAlert(title: "Location Field Blank", message: "Please enter Location")
+            }
+            else{
+                textField.resignFirstResponder()
+                showAlert(title: "Linkn Field Blank", message: "Please enter Some text")
+                
+            }
+        }else{
+            textField.resignFirstResponder()
+            
+        }
         return true
+    }
+    func showAlert(title:String,message:String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: {(action) in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
 }
