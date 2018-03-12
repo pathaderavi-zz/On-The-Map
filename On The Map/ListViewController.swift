@@ -6,29 +6,38 @@
 //  Copyright © 2018 Ravikiran Pathade. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 class ListViewController: UITableViewController{
     var allStudents = [Student]()
     @IBOutlet var tableList: UITableView!
     
+    @IBAction func addPin(_ sender: Any) {
+        let controller: AddPinViewController
+        controller = self.storyboard?.instantiateViewController(withIdentifier:"addPin") as! AddPinViewController
+        let navVC = UINavigationController(rootViewController:controller)
+        self.present(navVC,animated: true,completion: nil)
+    }
     @IBAction func logout(_ sender: Any) {
-        logOutFunction()
+        DispatchQueue.global(qos: .userInitiated).async { () -> Void in
+            logOutFunction()
+        }
         self.dismiss(animated:true, completion: nil)
     }
-  
+    
     override func viewDidAppear(_ animated: Bool) {
+        viewDidLoad()
     }
     override func viewDidLoad() {
-     listAllStudents { (students) in
-         self.allStudents = students
-         DispatchQueue.main.async {
-                self.tableList.delegate = self
-                self.tableList.reloadData()
+        DispatchQueue.global(qos: .userInitiated).async { () -> Void in
+            listAllStudents { (students) in
+                self.allStudents = students
+                DispatchQueue.main.async {
+                    self.tableList.delegate = self
+                    self.tableList.reloadData()
+                }
             }
         }
-
         
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -43,7 +52,7 @@ class ListViewController: UITableViewController{
         
         cell.textLabel?.text = tLabel
         cell.detailTextLabel?.text = detailLabel
-      
+        cell.imageView?.image = #imageLiteral(resourceName: "pin-icon")
         tableView.deselectRow(at: indexPath, animated: true)
         return cell
         
@@ -57,11 +66,18 @@ class ListViewController: UITableViewController{
             if UIApplication.shared.canOpenURL(url){
                 UIApplication.shared.open(url, options:[:], completionHandler: nil)
             }else{
-                print(url)
+                showAlert(title: "Link Invalid", message: "Link Cannot be opened.")
             }
         }else{
-            print(student.mediaUrl)
+            showAlert(title: "Link Invalid", message: "Link Cannot be opened.")
         }
+    }
+    func showAlert(title:String,message:String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: {(action) in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
 }

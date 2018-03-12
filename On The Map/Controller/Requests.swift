@@ -8,7 +8,7 @@
 
 import Foundation
 
-func loginFunction(username: String, password: String, completionHandler:@escaping(_ success:Bool,_ key:String)->Void){
+func loginFunction(username: String, password: String, completionHandler:@escaping(_ success:Bool,_ key:String,_ conError:Bool)->Void){
     var request = URLRequest(url: URL(string: "https://www.udacity.com/api/session")!)
     request.httpMethod = "POST"
     request.addValue("application/json", forHTTPHeaderField: "Accept")
@@ -18,7 +18,7 @@ func loginFunction(username: String, password: String, completionHandler:@escapi
     let session = URLSession.shared
     let task = session.dataTask(with: request) { data, response, error in
         if error != nil { // Handle error…
-            print(error as Any)
+            completionHandler(false,"nil",true)
             return
         }
         let range = Range(5..<data!.count)
@@ -36,9 +36,9 @@ func loginFunction(username: String, password: String, completionHandler:@escapi
         if let accountResult = parsedResult["account"] as? [String:AnyObject]{
             let key = accountResult["key"] as? String
             let registered = accountResult["registered"] as? Bool
-            completionHandler(registered!,key!)
+            completionHandler(registered!,key!,false)
         }else{
-            completionHandler(false,"nil")
+            completionHandler(false,"nil",false)
         }
     }
     task.resume()
@@ -117,8 +117,21 @@ func postStudentLocation(key:String,fname:String,lname:String,mapString:String,m
             completionHandler(false)
             return
         }else{
-            //If Location is posted then return true in completinhandler
-            completionHandler(true)
+            var parsedResult: AnyObject!
+            do{
+                parsedResult = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as AnyObject
+                //allStudents = Student.studentFromResults(parsedResult as! [[String : AnyObject]])
+                if let p1 = parsedResult["objectId"] as? String{
+                    print("success Post")
+                   completionHandler(true)
+                }else{
+                    completionHandler(false)
+                    print("Unable to print")
+                }
+                
+            }catch{
+                completionHandler(false)
+            }
         }
         print(String(data: data!, encoding: .utf8)!)
     }

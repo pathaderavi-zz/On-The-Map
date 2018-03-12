@@ -6,7 +6,6 @@
 //  Copyright © 2018 Ravikiran Pathade. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 class TabBarViewController: UITabBarController{
