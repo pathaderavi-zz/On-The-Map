@@ -70,11 +70,28 @@
                                 </constraints>
                                 <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an Account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OJ9-j9-dut">
+                                <rect key="frame" x="115" y="285" width="181" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OUE-uT-FEf">
+                                <rect key="frame" x="304" y="280" width="55" height="30"/>
+                                <state key="normal" title="Sign Up"/>
+                                <connections>
+                                    <action selector="signUpButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rbh-Ey-CnE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.43181674739999998" green="0.95824430890000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="OJ9-j9-dut" firstAttribute="top" secondItem="f7D-Ov-F8D" secondAttribute="bottom" constant="8" id="2p2-uS-dAk"/>
                             <constraint firstItem="CzI-6n-BIo" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="B6J-Ij-6nC"/>
+                            <constraint firstItem="OUE-uT-FEf" firstAttribute="leading" secondItem="f7D-Ov-F8D" secondAttribute="trailing" constant="-55" id="L35-Q6-RjQ"/>
+                            <constraint firstItem="OUE-uT-FEf" firstAttribute="leading" secondItem="OJ9-j9-dut" secondAttribute="trailing" constant="8" id="LpW-fG-prr"/>
                             <constraint firstItem="aHZ-PL-SSQ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="41" id="P3B-ga-hZ9"/>
+                            <constraint firstItem="OUE-uT-FEf" firstAttribute="top" secondItem="f7D-Ov-F8D" secondAttribute="bottom" constant="3" id="XAd-Zf-zON"/>
                             <constraint firstItem="V7z-8C-8XU" firstAttribute="leading" secondItem="aHZ-PL-SSQ" secondAttribute="leading" id="YMU-GL-2dV"/>
                             <constraint firstItem="aHZ-PL-SSQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="aZw-ki-7Ix"/>
                             <constraint firstItem="f7D-Ov-F8D" firstAttribute="top" secondItem="V7z-8C-8XU" secondAttribute="bottom" constant="43" id="ccr-Ie-GYA"/>
@@ -198,9 +215,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="2HI-Yk-Z6S">
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="2HI-Yk-Z6S">
                                 <rect key="frame" x="149.5" y="295.5" width="75" height="75"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="IWT-Vh-wK6"/>
                                     <constraint firstAttribute="width" constant="75" id="XVq-iw-f36"/>

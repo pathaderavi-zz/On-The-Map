@@ -30,11 +30,18 @@ class ListViewController: UITableViewController{
     }
     override func viewDidLoad() {
         DispatchQueue.global(qos: .userInitiated).async { () -> Void in
-            listAllStudents { (students) in
-                self.allStudents = students
-                DispatchQueue.main.async {
-                    self.tableList.delegate = self
-                    self.tableList.reloadData()
+            listAllStudents { (students,success) in
+                if(success){
+                    self.allStudents = students
+                    DispatchQueue.main.async {
+                        self.tableList.delegate = self
+                        self.tableList.reloadData()
+                    }
+                    
+                }else{
+                    DispatchQueue.main.async {
+                        self.showAlert(title: "Failed", message: "Unable to download Students data.")
+                    }
                 }
             }
         }
@@ -62,6 +69,7 @@ class ListViewController: UITableViewController{
         let student = allStudents[(indexPath as NSIndexPath).row]
         print(student.lattitude)
         print(student.longitude)
+        tableView.deselectRow(at: indexPath, animated: true)
         if let url = URL(string:student.mediaUrl){
             if UIApplication.shared.canOpenURL(url){
                 UIApplication.shared.open(url, options:[:], completionHandler: nil)

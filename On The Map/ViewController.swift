@@ -12,6 +12,11 @@ class ViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var userName: UITextField!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    
+    @IBAction func signUpButton(_ sender: Any) {
+        let url = URL(string:"https://auth.udacity.com/sign-up")!
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
     var passwordFieldActive:Bool = false
     @IBAction func loginPressed(_ sender: Any) {
         let usernameText = userName.text

@@ -34,28 +34,34 @@ class MapViewController: UIViewController, MKMapViewDelegate{
         DispatchQueue.global(qos: .userInitiated).async { () -> Void in
             var annotations = [MKPointAnnotation]()
             getUserDetails()
-            listAllStudents(completionHandler: {(students) in
-                for student in students{
-                    let lat = student.lattitude
-                    let long = student.longitude
-                    
-                    let coordinate = CLLocationCoordinate2D(latitude:CLLocationDegrees(lat),longitude:CLLocationDegrees(long))
-                    
-                    let firstName = student.firstName
-                    let lastName = student.lastName
-                    let mediaUrl = student.mediaUrl
-                    let title = "\(firstName) \(lastName)"
-                    let annotation = MKPointAnnotation()
-                    
-                    annotation.coordinate = coordinate
-                    annotation.title = title
-                    annotation.subtitle = mediaUrl
-                    annotations.append(annotation)
-                    
-                }
-                DispatchQueue.main.async {
-                    self.mapView.addAnnotations(annotations)
-                    self.mapView.delegate = self
+            listAllStudents(completionHandler: {(students,success) in
+                if(success){
+                    for student in students{
+                        let lat = student.lattitude
+                        let long = student.longitude
+                        
+                        let coordinate = CLLocationCoordinate2D(latitude:CLLocationDegrees(lat),longitude:CLLocationDegrees(long))
+                        
+                        let firstName = student.firstName
+                        let lastName = student.lastName
+                        let mediaUrl = student.mediaUrl
+                        let title = "\(firstName) \(lastName)"
+                        let annotation = MKPointAnnotation()
+                        
+                        annotation.coordinate = coordinate
+                        annotation.title = title
+                        annotation.subtitle = mediaUrl
+                        annotations.append(annotation)
+                        
+                    }
+                    DispatchQueue.main.async {
+                        self.mapView.addAnnotations(annotations)
+                        self.mapView.delegate = self
+                    }
+                }else{
+                    DispatchQueue.main.async {
+                       self.showAlert(title: "Failed", message: "Unable to download Students data.")
+                    }
                 }
             })
         }
@@ -85,10 +91,23 @@ class MapViewController: UIViewController, MKMapViewDelegate{
             let app = UIApplication.shared
             if let toOpen = view.annotation?.subtitle! {
                 if let openUrl = URL(string:toOpen){
-                    app.openURL(URL(string: toOpen)!)
+                    if app.canOpenURL(openUrl){
+                        app.open(openUrl, options:[:], completionHandler: nil)
+                    }else{
+                        showAlert(title: "Link Invalid", message: "Link Cannot be opened.")
+                    }
+                }else{
+                    showAlert(title: "Link Invalid", message: "Link Cannot be opened.")
                 }
             }
         }
     }
-    
+
+    func showAlert(title:String,message:String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: {(action) in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
 }

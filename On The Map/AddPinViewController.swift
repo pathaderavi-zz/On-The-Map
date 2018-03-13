@@ -29,12 +29,14 @@ class AddPinViewController:UIViewController,UITextFieldDelegate,MKMapViewDelegat
         let activeSearch = MKLocalSearch(request:searchRequest)
         
         if mapHidden{
+            self.loadingIndicator.isHidden = false
+            self.loadingIndicator.startAnimating()
             DispatchQueue.global(qos: .userInitiated).async { () -> Void in
                 activeSearch.start { (response, error) in
                     if response == nil{
                         DispatchQueue.main.async {
-                            
-                            
+                            self.loadingIndicator.isHidden = true
+                            self.loadingIndicator.stopAnimating()
                             if(self.textFieldMap.text?.count == 0){
                                 self.textFieldMap.resignFirstResponder()
                                 self.showAlert(title: "Location Field Blank", message: "Please enter Location")
@@ -44,8 +46,7 @@ class AddPinViewController:UIViewController,UITextFieldDelegate,MKMapViewDelegat
                                 self.showAlert(title: "Location Cannot be found", message: "Please enter Different Location")
                             }
                             return
-                            
-                        } // Show Alert
+                        }
                     }else{
                         DispatchQueue.main.async {
                             if(self.textFieldMap.text?.count == 0){
@@ -53,6 +54,8 @@ class AddPinViewController:UIViewController,UITextFieldDelegate,MKMapViewDelegat
                                 self.showAlert(title: "Location Field Blank", message: "Please enter Location")
                                 return
                             }
+                            self.loadingIndicator.isHidden = true
+                            self.loadingIndicator.stopAnimating()
                             self.textFieldMap.isHidden = true
                             self.mapView.isHidden = false
                             self.linkTextField.isHidden = false
@@ -153,12 +156,10 @@ class AddPinViewController:UIViewController,UITextFieldDelegate,MKMapViewDelegat
     
     
     func subscribeToKeyboardNotifications() {
-        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil)
     }
     
     func unsubscribeFromKeyboardNotifications() {
-        
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
     }
     
@@ -179,7 +180,6 @@ class AddPinViewController:UIViewController,UITextFieldDelegate,MKMapViewDelegat
     }
     
     func getKeyboardHeight(_ notification:Notification) -> CGFloat {
-        
         let userInfo = notification.userInfo
         let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
         return keyboardSize.cgRectValue.height
