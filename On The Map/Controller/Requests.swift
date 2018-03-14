@@ -44,7 +44,7 @@ func loginFunction(username: String, password: String, completionHandler:@escapi
     task.resume()
 }
 
-func logOutFunction(){
+func logOutFunction(completionHandler:@escaping(_ success:Bool)->Void){
     var request = URLRequest(url: URL(string: "https://www.udacity.com/api/session")!)
     request.httpMethod = "DELETE"
     var xsrfCookie: HTTPCookie? = nil
@@ -57,19 +57,23 @@ func logOutFunction(){
     }
     let session = URLSession.shared
     let task = session.dataTask(with: request) { data, response, error in
-        if error != nil { // Handle error…
+        if error != nil {
+            completionHandler(false)
             return
+        }else{
+            let range = Range(5..<data!.count)
+            let newData = data?.subdata(in: range)
+            completionHandler(true)
         }
-        let range = Range(5..<data!.count)
-        let newData = data?.subdata(in: range) /* subset response data! */
-        print(String(data: newData!, encoding: .utf8)!)
+        /* subset response data! */
+    
     }
     task.resume()
 }
 
 func listAllStudents(completionHandler:@escaping(_ students:[Student],_ success:Bool)->Void){
     var allStudents = [Student]()
-    var request = URLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!)
+    var request = URLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation?limit=100&order=-updatedAt")!)
     request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
     request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
     let session = URLSession.shared

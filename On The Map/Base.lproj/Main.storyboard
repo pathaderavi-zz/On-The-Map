@@ -137,14 +137,14 @@
                         <viewLayoutGuide key="safeArea" id="9Iv-si-Fvn"/>
                     </view>
                     <navigationItem key="navigationItem" title="Students Map" id="VcC-ar-7PH">
-                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="daH-Ez-utW">
-                            <connections>
-                                <action selector="addPinButton:" destination="jUe-6w-p9r" id="s7G-ay-Yds"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="LOGOUT" id="knK-0B-mgc">
+                        <barButtonItem key="leftBarButtonItem" title="LOGOUT" id="knK-0B-mgc">
                             <connections>
                                 <action selector="logout:" destination="jUe-6w-p9r" id="1He-N6-pZE"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="daH-Ez-utW">
+                            <connections>
+                                <action selector="addPinButton:" destination="jUe-6w-p9r" id="s7G-ay-Yds"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -289,14 +289,14 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Students List" id="4Wj-Eg-j8I">
-                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="03T-Kp-hSS">
-                            <connections>
-                                <action selector="addPin:" destination="gTC-ay-JxV" id="Vzk-l8-YaM"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="LOGOUT" id="zBD-zB-uZt">
+                        <barButtonItem key="leftBarButtonItem" title="LOGOUT" id="zBD-zB-uZt">
                             <connections>
                                 <action selector="logout:" destination="gTC-ay-JxV" id="70H-cZ-rmO"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="03T-Kp-hSS">
+                            <connections>
+                                <action selector="addPin:" destination="gTC-ay-JxV" id="Vzk-l8-YaM"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

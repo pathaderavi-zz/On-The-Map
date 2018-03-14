@@ -12,11 +12,11 @@ import MapKit
 class MapViewController: UIViewController, MKMapViewDelegate{
     var allStudents = [Student]()
     @IBOutlet weak var mapView: MKMapView!
-    override func viewDidAppear(_ animated: Bool) {
-        
-    }
+  
     override func viewWillAppear(_ animated: Bool) {
-        viewDidLoad()
+        super.viewWillAppear(true)
+        self.allStudents = StudentDataSource.sharedInstance().allStudents
+        viewDidLoad()   
     }
     @IBAction func addPinButton(_ sender: Any) {
         let controller: AddPinViewController
@@ -26,9 +26,15 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     }
     @IBAction func logout(_ sender: Any) {
         DispatchQueue.global(qos: .userInitiated).async { () -> Void in
-            logOutFunction()
+            logOutFunction(){(success) in
+                if(success){
+                     self.dismiss(animated: true, completion: nil)
+                }else{
+                    self.showAlert(title: "Failed!", message: "Unable to Logout, Try Again")
+                }
+            }
         }
-        self.dismiss(animated: true, completion: nil)
+       
     }
     override func viewDidLoad() {
         DispatchQueue.global(qos: .userInitiated).async { () -> Void in

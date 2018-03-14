@@ -20,13 +20,24 @@ class ListViewController: UITableViewController{
     }
     @IBAction func logout(_ sender: Any) {
         DispatchQueue.global(qos: .userInitiated).async { () -> Void in
-            logOutFunction()
+            logOutFunction(){(success) in
+                if(success){
+                    self.dismiss(animated: true, completion: nil)
+                }else{
+                    self.showAlert(title: "Failed!", message: "Unable to Logout, Try Again")
+                }
+            }
         }
         self.dismiss(animated:true, completion: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
         viewDidLoad()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.allStudents = StudentDataSource.sharedInstance().allStudents
     }
     override func viewDidLoad() {
         DispatchQueue.global(qos: .userInitiated).async { () -> Void in
