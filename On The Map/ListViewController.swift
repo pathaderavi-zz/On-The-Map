@@ -21,11 +21,14 @@ class ListViewController: UITableViewController{
     @IBAction func logout(_ sender: Any) {
         DispatchQueue.global(qos: .userInitiated).async { () -> Void in
             logOutFunction(){(success) in
-                if(success){
-                    self.dismiss(animated: true, completion: nil)
-                }else{
-                    self.showAlert(title: "Failed!", message: "Unable to Logout, Try Again")
+                DispatchQueue.main.async {
+                    if(success){
+                        self.dismiss(animated: true, completion: nil)
+                    }else{
+                        self.showAlert(title: "Failed!", message: "Unable to Logout, Try Again")
+                    }
                 }
+               
             }
         }
         self.dismiss(animated:true, completion: nil)

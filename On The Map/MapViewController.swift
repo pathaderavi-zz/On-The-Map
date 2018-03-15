@@ -27,11 +27,14 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     @IBAction func logout(_ sender: Any) {
         DispatchQueue.global(qos: .userInitiated).async { () -> Void in
             logOutFunction(){(success) in
-                if(success){
-                     self.dismiss(animated: true, completion: nil)
-                }else{
-                    self.showAlert(title: "Failed!", message: "Unable to Logout, Try Again")
+                DispatchQueue.main.async {
+                    if(success){
+                        self.dismiss(animated: true, completion: nil)
+                    }else{
+                        self.showAlert(title: "Failed!", message: "Unable to Logout, Try Again")
+                    }
                 }
+              
             }
         }
        
@@ -61,6 +64,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
                         
                     }
                     DispatchQueue.main.async {
+                        self.mapView.removeAnnotations(self.mapView.annotations)
                         self.mapView.addAnnotations(annotations)
                         self.mapView.delegate = self
                     }
